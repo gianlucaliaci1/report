@@ -1,85 +1,145 @@
 <!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morea Hub</title>
 
-<html class="light" lang="it"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Morea Pet Trading - Gestione Spese</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "surface-dim": "#d7dae0",
-                        "on-tertiary-container": "#a3becc",
-                        "on-primary": "#ffffff",
-                        "on-primary-container": "#93bcfc",
-                        "on-background": "#181c20",
-                        "surface-variant": "#dfe3e8",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-fixed-variant": "#144780",
-                        "inverse-on-surface": "#eef1f7",
-                        "on-secondary-container": "#4b6954",
-                        "on-primary-fixed": "#001c3b",
-                        "surface": "#f7f9ff",
-                        "on-surface-variant": "#424750",
-                        "tertiary-container": "#344e59",
-                        "secondary-fixed-dim": "#adcfb5",
-                        "secondary": "#476550",
-                        "on-secondary-fixed-variant": "#304d39",
-                        "error-container": "#ffdad6",
-                        "inverse-surface": "#2d3135",
-                        "background": "#f7f9ff",
-                        "tertiary-fixed": "#cbe7f5",
-                        "on-tertiary-fixed": "#021f29",
-                        "surface-container-high": "#e5e8ee",
-                        "on-tertiary": "#ffffff",
-                        "tertiary": "#1d3742",
-                        "on-error": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "primary-container": "#1a4b84",
-                        "tertiary-fixed-dim": "#afcbd8",
-                        "on-tertiary-fixed-variant": "#304a55",
-                        "primary-fixed": "#d5e3ff",
-                        "surface-container-highest": "#dfe3e8",
-                        "on-surface": "#181c20",
-                        "inverse-primary": "#a6c8ff",
-                        "surface-container-low": "#f1f4fa",
-                        "on-error-container": "#93000a",
-                        "primary-fixed-dim": "#a6c8ff",
-                        "surface-tint": "#335f99",
-                        "secondary-fixed": "#c9ebd0",
-                        "secondary-container": "#c6e8cd",
-                        "on-secondary-fixed": "#032110",
-                        "primary": "#003466",
-                        "outline": "#737781",
-                        "surface-bright": "#f7f9ff",
-                        "surface-container": "#ebeef4",
-                        "error": "#ba1a1a",
-                        "outline-variant": "#c3c6d1"
-                    },
-                    fontFamily: {
-                        "headline": ["Manrope"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    },
-                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
-                },
-            },
-        }
-    </script>
+<script src="https://cdn.tailwindcss.com"></script>
+
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        .sidebar-active {
-            font-weight: 600;
-        }
-    </style>
+body { font-family: Arial; }
+.hidden { display:none; }
+</style>
 </head>
-<bod
+
+<body class="bg-gray-100">
+
+<!-- SIDEBAR -->
+<div class="fixed left-0 top-0 h-full w-60 bg-gray-900 text-white p-4">
+<h1 class="text-xl font-bold mb-6">Morea Hub</h1>
+
+<button onclick="showSection('dashboard')" class="block mb-2">Dashboard</button>
+<button onclick="showSection('ordini')" class="block mb-2">Ordini</button>
+<button onclick="showSection('audio')" class="block mb-2">Audio</button>
+</div>
+
+<!-- MAIN -->
+<div class="ml-64 p-6">
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+<h2 class="text-2xl font-bold mb-4">Dashboard</h2>
+
+<p>Benvenuto nel tuo gestionale 🚀</p>
+
+</div>
+
+<!-- ORDINI -->
+<div id="ordini" class="hidden">
+
+<h2 class="text-2xl font-bold mb-4">Ordini</h2>
+
+<input id="cliente" placeholder="Cliente" class="border p-2 mr-2">
+<input id="prodotto" placeholder="Prodotto" class="border p-2 mr-2">
+<input id="prezzo" placeholder="Prezzo" class="border p-2 mr-2">
+
+<button onclick="aggiungiOrdine()" class="bg-blue-600 text-white px-4 py-2">Aggiungi</button>
+
+<table class="mt-4 w-full bg-white">
+<thead>
+<tr>
+<th>ID</th>
+<th>Cliente</th>
+<th>Prodotto</th>
+<th>Prezzo</th>
+</tr>
+</thead>
+
+<tbody id="listaOrdini"></tbody>
+</table>
+
+</div>
+
+<!-- AUDIO -->
+<div id="audio" class="hidden">
+
+<h2 class="text-2xl font-bold mb-4">Audio Player</h2>
+
+<audio id="player" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<button onclick="playAudio()" class="bg-green-500 text-white px-4 py-2">Play</button>
+<button onclick="pauseAudio()" class="bg-red-500 text-white px-4 py-2">Pause</button>
+
+</div>
+
+</div>
+
+<script>
+
+let ordini = JSON.parse(localStorage.getItem("ordini")) || []
+
+function showSection(section) {
+document.getElementById("dashboard").classList.add("hidden")
+document.getElementById("ordini").classList.add("hidden")
+document.getElementById("audio").classList.add("hidden")
+
+document.getElementById(section).classList.remove("hidden")
+}
+
+function aggiungiOrdine() {
+
+let cliente = document.getElementById("cliente").value
+let prodotto = document.getElementById("prodotto").value
+let prezzo = document.getElementById("prezzo").value
+
+if(cliente === "" || prodotto === "" || prezzo === "") {
+alert("Compila tutti i campi")
+return
+}
+
+let ordine = {
+id: Date.now(),
+cliente,
+prodotto,
+prezzo
+}
+
+ordini.push(ordine)
+localStorage.setItem("ordini", JSON.stringify(ordini))
+
+renderOrdini()
+}
+
+function renderOrdini() {
+
+let html = ""
+
+ordini.forEach(o => {
+html += `
+<tr>
+<td>${o.id}</td>
+<td>${o.cliente}</td>
+<td>${o.prodotto}</td>
+<td>€ ${o.prezzo}</td>
+</tr>
+`
+})
+
+document.getElementById("listaOrdini").innerHTML = html
+}
+
+function playAudio() {
+document.getElementById("player").play()
+}
+
+function pauseAudio() {
+document.getElementById("player").pause()
+}
+
+renderOrdini()
+
+</script>
+
+</body>
+</html>
